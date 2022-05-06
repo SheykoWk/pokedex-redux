@@ -5,19 +5,22 @@ import getAllPokemons from "../services/getAllPokemons"
 const PokemonList = () => {
 
     const [pokeList, setPokeList] = useState([])
+    const [arrOffsetPosition, setArrOffsetPosition] = useState(0)
+
 
     useEffect(() => {
-        getAllPokemons()
+        getAllPokemons(arrOffsetPosition)
             .then((res) => {
                 setPokeList(res.data.results)
             })
-    }, [])
+    }, [arrOffsetPosition])
 
     const list = pokeList.map((item) => <PokeItem key={item.url} url={item.url} />)
 
     return (
         <div>
             {list}
+            <button onClick={() => setArrOffsetPosition(arrOffsetPosition + 20)}>Next 20</button>
         </div>
     )
 }
